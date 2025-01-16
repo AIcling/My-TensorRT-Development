@@ -41,7 +41,7 @@ model = SimplifiedGCN(in_channels, 16, out_channels)
 model.load_state_dict(torch.load("best_model.pt"))
 model.eval()
 
-device = torch.device("cuda")   # 如果你想在 CPU 编译，就改成('cpu')
+device = torch.device("cuda")   
 model.to(device)
 
 x_example = data.x.to(device, torch.float32)      # [2708, 1433]
@@ -58,7 +58,7 @@ traced_module = torch.jit.trace(
 )
 traced_module.eval()
 
-# Torch-TensorRT 编译 (固定形状)
+# Torch-TensorRT compile (fixed shape)
 print("[export.py] Start Torch-TensorRT compile with fixed shape ...")
 
 trt_ts_module = torch_tensorrt.compile(
